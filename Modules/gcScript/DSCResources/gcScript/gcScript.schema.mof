@@ -1,0 +1,14 @@
+[ClassVersion("1.0.0.0")]
+class Reason
+{
+    [Read] String Phrase;
+    [Read] String Code;
+};
+
+[ClassVersion("1.0.0.0"), FriendlyName("gcScript")]
+class gcScript : OMI_BaseResource
+{
+    [Key, Description("A sample property"), ValueMap{"Value"}, Values{"Value"}] String Property;
+    [Read, EmbeddedInstance("Reason")] String Status;
+    [Read, EmbeddedInstance("Reason")] String Reasons[];
+};

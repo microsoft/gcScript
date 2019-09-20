@@ -1,0 +1,17 @@
+instance of gcScript as $gcScript
+{
+    ResourceID = "[gcScript]gcScript";
+    SourceInfo = "::5::5::gcScript";
+    ModuleName = "gcScript";
+    ModuleVersion = "1.0.0";
+    Property = "Value";
+    ConfigurationName = "gcScript";
+};
+
+instance of OMI_ConfigurationDocument
+{
+    Version = "2.0.0";
+    MinimumCompatibleVersion = "1.0.0";
+    CompatibleVersionAdditionalProperties = {"Omi_BaseResource:ConfigurationName"};
+    Name = "gcScript";
+};
