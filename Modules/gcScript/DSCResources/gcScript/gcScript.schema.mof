@@ -8,7 +8,6 @@ class Reason
 [ClassVersion("1.0.0.0"), FriendlyName("gcScript")]
 class gcScript : OMI_BaseResource
 {
-    [Key, Description("A sample property"), ValueMap{"Value"}, Values{"Value"}] String Property;
-    [Read, EmbeddedInstance("Reason")] String Status;
+    [Key, Description("Specifies the resource is a single instance, the value must be 'Yes'"), ValueMap{"Yes"}, Values{"Yes"}] String IsSingleInstance;
     [Read, EmbeddedInstance("Reason")] String Reasons[];
 };

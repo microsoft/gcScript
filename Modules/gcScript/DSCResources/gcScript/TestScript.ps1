@@ -1,0 +1,1 @@
+(Get-PSRepository -Name PSGallery | % InstallationPolicy) -eq 'Untrusted'
