@@ -5,8 +5,8 @@ class Reason
     [Read] String Code;
 };
 
-[ClassVersion("1.0.0.0"), FriendlyName("gcScript")]
-class gcScript : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("gcJSON")]
+class gcJSON : OMI_BaseResource
 {
     [Key, Description("Specifies the resource is a single instance, the value must be 'Yes'"), ValueMap{"Yes"}, Values{"Yes"}] String IsSingleInstance;
     [Read, EmbeddedInstance("Reason")] String Reasons[];

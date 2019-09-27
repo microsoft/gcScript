@@ -12,11 +12,11 @@ function Get-TargetResource {
         $IsSingleInstance = 'Yes'
     )
 
-    $Phrase = Get-Content $script:module_folder/gcScript.json | ConvertFrom-Json | ForEach-Object {$_.Get} | Invoke-Script
+    $Phrase = Get-Content $script:module_folder/gcJSON.json | ConvertFrom-Json | ForEach-Object {$_.Get} | Invoke-Script
 
     $reasons = @()
         $reasons += @{
-            Code   = 'gcScript:gcScript:ScriptOutput'
+            Code   = 'gcJSON:gcJSON:ScriptOutput'
             Phrase = $Phrase
         }
 
@@ -38,7 +38,7 @@ function Test-TargetResource {
         $IsSingleInstance = 'Yes'
     )
 
-    $return = Get-Content $script:module_folder/gcScript.json | ConvertFrom-Json | ForEach-Object {$_.Test} | Invoke-Script
+    $return = Get-Content $script:module_folder/gcJSON.json | ConvertFrom-Json | ForEach-Object {$_.Test} | Invoke-Script
 
     return $return
 }
@@ -53,7 +53,7 @@ function Set-TargetResource {
         $IsSingleInstance = 'Yes'
     )
 
-    Get-Content $script:module_folder/gcScript.json | ConvertFrom-Json | ForEach-Object {$_.Set} | Invoke-Script
+    Get-Content $script:module_folder/gcJSON.json | ConvertFrom-Json | ForEach-Object {$_.Set} | Invoke-Script
 }
 
 function Invoke-Script {
@@ -64,7 +64,7 @@ function Invoke-Script {
         $string
     )
 
-    $string | Out-File $script:module_folder/gcScript.ps1
-    & $script:module_folder/gcScript.ps1
-    Remove-Item $script:module_folder/gcScript.ps1 -Force
+    $string | Out-File $script:module_folder/gcJSON.ps1
+    & $script:module_folder/gcJSON.ps1
+    Remove-Item $script:module_folder/gcJSON.ps1 -Force
 }
