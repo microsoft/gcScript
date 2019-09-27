@@ -4,7 +4,7 @@ instance of gcJSON as $gcJSON
     SourceInfo = "::5::5::gcJSON";
     ModuleName = "gcJSON";
     ModuleVersion = "1.0.0";
-    Property = "Value";
+    IsSingleInstance = "Yes";
     ConfigurationName = "gcJSON";
 };
 

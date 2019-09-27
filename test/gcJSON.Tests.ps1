@@ -23,14 +23,14 @@ Describe "gcJSON Tests" {
         Context "gcJSON\Set-TargetResource" {
 
             It 'Should always throw' {
-                { Set-TargetResource } | Should Throw
+                { Set-TargetResource -IsSingleInstance 'Yes' } | Should Throw
             }
         }
 
         Context 'when the system is in the desired state' {
 
             Context "gcJSON\Get-TargetResource" {
-                $get = Get-TargetResource
+                $get = Get-TargetResource -IsSingleInstance 'Yes'
 
                 It 'Should return a hashtable for the property Reasons' {
                     $get.Reasons | Should -BeOfType 'Hashtable'
@@ -48,7 +48,7 @@ Describe "gcJSON Tests" {
 
             Context "gcJSON\Test-TargetResource" {
                 Mock Invoke-Script { $true }
-                $test = Test-TargetResource
+                $test = Test-TargetResource -IsSingleInstance 'Yes'
 
                 It 'Should pass Test' {
                     $test | Should -BeTrue
@@ -59,7 +59,7 @@ Describe "gcJSON Tests" {
         Context 'when the system is not in the desired state' {
 
             Context "gcJSON\Get-TargetResource" {
-                $get = Get-TargetResource
+                $get = Get-TargetResource -IsSingleInstance 'Yes'
 
                 It 'Should return a hashtable for the property Reasons' {
                     $get.Reasons | Should -BeOfType 'Hashtable'
@@ -77,7 +77,7 @@ Describe "gcJSON Tests" {
 
             Context "gcJSON\Test-TargetResource" {
                 Mock Invoke-Script { $false }
-                $test = Test-TargetResource
+                $test = Test-TargetResource -IsSingleInstance 'Yes'
 
                 It 'Should fail Test' {
                     $test | Should -BeFalse

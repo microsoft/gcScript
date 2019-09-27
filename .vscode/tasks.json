@@ -38,7 +38,7 @@
             "label": "2. Build package",
             "type": "shell",
             "group": "build",
-            "command": "$env:psmodulepath = $env:psmodulepath+';${workspaceFolder}/Modules'; New-GuestConfigurationPackage -Name ${workspaceFolderBasename} -Configuration '${workspaceFolder}/${workspaceFolderBasename}.mof' -Path '${workspaceFolder}/package' -Verbose",
+            "command": "$env:psmodulepath = $env:psmodulepath+';${workspaceFolder}/Modules'; New-GuestConfigurationPackage -Name ${workspaceFolderBasename} -Configuration '${workspaceFolder}/${workspaceFolderBasename}.mof' -Path '${workspaceFolder}/package' -Verbose;Test-GuestConfigurationPackage -Path '${workspaceFolder}/package/${workspaceFolderBasename}/${workspaceFolderBasename}.zip' -Verbose | fl *",
             "problemMatcher": [ "$pester" ]
 
         },

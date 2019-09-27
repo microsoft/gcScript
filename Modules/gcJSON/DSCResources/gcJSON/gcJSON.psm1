@@ -1,18 +1,15 @@
-$script:dscresource_folder = (Get-Item $PSScriptRoot).Parent
-$script:module_folder = (Get-Item $dscresource_folder).Parent
-
 function Get-TargetResource {
     [CmdletBinding()]
     [OutputType([Hashtable])]
     param
     (
-        [Parameter()]
+        [Parameter(Mandatory=$true)]
         [ValidateSet('Yes')]
         [String]
-        $IsSingleInstance = 'Yes'
+        $IsSingleInstance
     )
 
-    $Phrase = Get-Content $script:module_folder/gcJSON.json | ConvertFrom-Json | ForEach-Object {$_.Get} | Invoke-Script
+    $Phrase = Get-Content "$psscriptroot\gcJSON.json" | ConvertFrom-Json | ForEach-Object {$_.Get} | Invoke-Script
 
     $reasons = @()
         $reasons += @{
@@ -32,13 +29,13 @@ function Test-TargetResource {
     [OutputType([Boolean])]
     param
     (
-        [Parameter()]
+        [Parameter(Mandatory=$true)]
         [ValidateSet('Yes')]
         [String]
-        $IsSingleInstance = 'Yes'
+        $IsSingleInstance
     )
 
-    $return = Get-Content $script:module_folder/gcJSON.json | ConvertFrom-Json | ForEach-Object {$_.Test} | Invoke-Script
+    $return = Get-Content "$psscriptroot\gcJSON.json" | ConvertFrom-Json | ForEach-Object {$_.Test} | Invoke-Script
 
     return $return
 }
@@ -47,24 +44,24 @@ function Set-TargetResource {
     [CmdletBinding()]
     param
     (
-        [Parameter()]
+        [Parameter(Mandatory=$true)]
         [ValidateSet('Yes')]
         [String]
-        $IsSingleInstance = 'Yes'
+        $IsSingleInstance
     )
 
-    Get-Content $script:module_folder/gcJSON.json | ConvertFrom-Json | ForEach-Object {$_.Set} | Invoke-Script
+    Get-Content "$psscriptroot\gcJSON.json" | ConvertFrom-Json | ForEach-Object {$_.Set} | Invoke-Script
 }
 
 function Invoke-Script {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory='true',ValueFromPipeline='true')]
+        [Parameter(Mandatory=$true,ValueFromPipeline=$true)]
         [string]
         $string
     )
 
-    $string | Out-File $script:module_folder/gcJSON.ps1
-    & $script:module_folder/gcJSON.ps1
-    Remove-Item $script:module_folder/gcJSON.ps1 -Force
+    $string | Out-File "$psscriptroot\gcJSON.ps1"
+    & "$psscriptroot\gcJSON.ps1"
+    Remove-Item "$psscriptroot\gcJSON.ps1" -Force
 }
