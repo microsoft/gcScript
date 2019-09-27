@@ -1,3 +1,5 @@
+$script:dscresource_folder = (Get-Item $PSScriptRoot).Parent
+$script:module_folder = (Get-Item $dscresource_folder).Parent
 
 function Get-TargetResource {
     [CmdletBinding()]
@@ -10,7 +12,7 @@ function Get-TargetResource {
         $IsSingleInstance = 'Yes'
     )
 
-    $Phrase = & $PSScriptRoot\GetScript.ps1
+    $Phrase = Get-Content $script:module_folder/gcScript.json | ConvertFrom-Json | ForEach-Object {$_.Get} | Invoke-Script
 
     $reasons = @()
         $reasons += @{
@@ -36,7 +38,7 @@ function Test-TargetResource {
         $IsSingleInstance = 'Yes'
     )
 
-    $return = & $PSScriptRoot\TestScript.ps1
+    $return = Get-Content $script:module_folder/gcScript.json | ConvertFrom-Json | ForEach-Object {$_.Test} | Invoke-Script
 
     return $return
 }
@@ -51,5 +53,18 @@ function Set-TargetResource {
         $IsSingleInstance = 'Yes'
     )
 
-    throw 'Set functionality is not supported in this version of the DSC resource.'
+    Get-Content $script:module_folder/gcScript.json | ConvertFrom-Json | ForEach-Object {$_.Set} | Invoke-Script
+}
+
+function Invoke-Script {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory='true',ValueFromPipeline='true')]
+        [string]
+        $string
+    )
+
+    $string | Out-File $script:module_folder/gcScript.ps1
+    & $script:module_folder/gcScript.ps1
+    Remove-Item $script:module_folder/gcScript.ps1 -Force
 }

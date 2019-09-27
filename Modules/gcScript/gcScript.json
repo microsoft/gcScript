@@ -1,0 +1,5 @@
+{
+  "Get": "$InstallationPolicy = powershell.exe -command {Get-PSRepository -Name PSGallery | % InstallationPolicy; return 'The installation policy for PSGallery is'+$InstallationPolicy}",
+  "Test": "powershell.exe -command {(Get-PSRepository -Name PSGallery | % InstallationPolicy) -eq 'Untrusted'}",
+  "Set": "throw 'Set functionality is not supported in this version of the DSC resource.'"
+}
