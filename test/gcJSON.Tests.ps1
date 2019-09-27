@@ -32,12 +32,22 @@ Describe "gcJSON Tests" {
             Context "gcJSON\Get-TargetResource" {
                 $get = Get-TargetResource
 
-                It 'Should return an empty array for the property Reasons' {
-                    $get.Reasons | Should -Be $null
+                It 'Should return a hashtable for the property Reasons' {
+                    $get.Reasons | Should -BeOfType 'Hashtable'
+                }
+
+                It 'Should have at least one reasons code' {
+                    $get.reasons[0] | ForEach-Object Code | Should -BeOfType 'String'
+                    $get.reasons[0] | ForEach-Object Code | Should -Match "$script:moduleName:$script:moduleName:"
+                }
+
+                It 'Should have at least one reasons phrase' {
+                    $get.reasons | ForEach-Object Phrase | Should -BeOfType 'String'
                 }
             }
 
             Context "gcJSON\Test-TargetResource" {
+                Mock Invoke-Script { $true }
                 $test = Test-TargetResource
 
                 It 'Should pass Test' {
@@ -66,6 +76,7 @@ Describe "gcJSON Tests" {
             }
 
             Context "gcJSON\Test-TargetResource" {
+                Mock Invoke-Script { $false }
                 $test = Test-TargetResource
 
                 It 'Should fail Test' {
