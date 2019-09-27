@@ -1,26 +1,26 @@
 $errorActionPreference = 'Stop'
 Set-StrictMode -Version 'Latest'
 
-$script:moduleName = 'gcScript'
+$script:moduleName = 'gcJSON'
 
-Describe "gcScript Tests" {
+Describe "gcJSON Tests" {
 
     BeforeAll {
-        $resourceModulePath = Join-Path -Path (Split-Path $PSScriptRoot -Parent) -ChildPath "Modules\gcScript\DscResources\gcScript\gcScript.psm1"
+        $resourceModulePath = Join-Path -Path (Split-Path $PSScriptRoot -Parent) -ChildPath "Modules\gcJSON\DscResources\gcJSON\gcJSON.psm1"
         Import-Module -Name $resourceModulePath -Force
     }
 
-    InModuleScope 'gcScript' {
+    InModuleScope 'gcJSON' {
 
         Context 'module manifest' {
 
             It 'Has a PowerShell module manifest that meets functional requirements' {
-                Test-ModuleManifest -Path .\Modules\gcScript\gcScript.psd1 | Should Not BeNullOrEmpty
+                Test-ModuleManifest -Path .\Modules\gcJSON\gcJSON.psd1 | Should Not BeNullOrEmpty
                 $? | Should Be $true
             }
         }
 
-        Context "gcScript\Set-TargetResource" {
+        Context "gcJSON\Set-TargetResource" {
 
             It 'Should always throw' {
                 { Set-TargetResource } | Should Throw
@@ -29,7 +29,7 @@ Describe "gcScript Tests" {
 
         Context 'when the system is in the desired state' {
 
-            Context "gcScript\Get-TargetResource" {
+            Context "gcJSON\Get-TargetResource" {
                 $get = Get-TargetResource
 
                 It 'Should return an empty array for the property Reasons' {
@@ -37,7 +37,7 @@ Describe "gcScript Tests" {
                 }
             }
 
-            Context "gcScript\Test-TargetResource" {
+            Context "gcJSON\Test-TargetResource" {
                 $test = Test-TargetResource
 
                 It 'Should pass Test' {
@@ -48,7 +48,7 @@ Describe "gcScript Tests" {
 
         Context 'when the system is not in the desired state' {
 
-            Context "gcScript\Get-TargetResource" {
+            Context "gcJSON\Get-TargetResource" {
                 $get = Get-TargetResource
 
                 It 'Should return a hashtable for the property Reasons' {
@@ -65,7 +65,7 @@ Describe "gcScript Tests" {
                 }
             }
 
-            Context "gcScript\Test-TargetResource" {
+            Context "gcJSON\Test-TargetResource" {
                 $test = Test-TargetResource
 
                 It 'Should fail Test' {

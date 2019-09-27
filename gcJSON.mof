@@ -1,11 +1,11 @@
-instance of gcScript as $gcScript
+instance of gcJSON as $gcJSON
 {
-    ResourceID = "[gcScript]gcScript";
-    SourceInfo = "::5::5::gcScript";
-    ModuleName = "gcScript";
+    ResourceID = "[gcJSON]gcJSON";
+    SourceInfo = "::5::5::gcJSON";
+    ModuleName = "gcJSON";
     ModuleVersion = "1.0.0";
     Property = "Value";
-    ConfigurationName = "gcScript";
+    ConfigurationName = "gcJSON";
 };
 
 instance of OMI_ConfigurationDocument
@@ -13,5 +13,5 @@ instance of OMI_ConfigurationDocument
     Version = "2.0.0";
     MinimumCompatibleVersion = "1.0.0";
     CompatibleVersionAdditionalProperties = {"Omi_BaseResource:ConfigurationName"};
-    Name = "gcScript";
+    Name = "gcJSON";
 };
